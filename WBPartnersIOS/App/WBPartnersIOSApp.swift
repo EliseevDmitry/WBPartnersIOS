@@ -9,9 +9,27 @@ import SwiftUI
 
 @main
 struct WBPartnersIOSApp: App {
+    init() {
+        configureNavigationBarAppearance()
+    }
+    @StateObject private var router = Router(startAt: .pricesAndDiscounts(.error))
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RoutingView()
+                .environmentObject(router)
         }
+    }
+    
+    private func configureNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.shadowColor = Color.wbColor.uiWhite
+        appearance.backgroundColor = Color.wbColor.uiWhite
+        appearance.titleTextAttributes = [
+            .foregroundColor: Color.wbColor.uiBlack,
+            .font: Font.aBeeZeeRegular
+        ]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }
