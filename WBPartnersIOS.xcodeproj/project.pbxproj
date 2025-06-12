@@ -7,16 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		264D21192DF9D63200F0A179 /* PricesAndDiscountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */; };
+		264D211C2DF9DC2600F0A179 /* Image+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211B2DF9DC2600F0A179 /* Image+Name.swift */; };
+		264D211E2DF9E58B00F0A179 /* LoadingCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */; };
 		266E23A22DF9D18500D79B04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266E23A02DF9D18500D79B04 /* ContentView.swift */; };
 		266E23A32DF9D18500D79B04 /* WBPartnersIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266E23A12DF9D18500D79B04 /* WBPartnersIOSApp.swift */; };
 		266E23A52DF9D18500D79B04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 266E239F2DF9D18500D79B04 /* Assets.xcassets */; };
+		26DBD6E02DFAB52F004ED717 /* ABeeZee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DBD6DF2DFAB52F004ED717 /* ABeeZee-Regular.ttf */; };
+		26DBD6E42DFAB602004ED717 /* Extension+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6E32DFAB602004ED717 /* Extension+Font.swift */; };
+		26DBD6E62DFABAA9004ED717 /* Extension+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6E52DFABAA9004ED717 /* Extension+Color.swift */; };
+		26DBD6E82DFABDB3004ED717 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 26DBD6E72DFABDB3004ED717 /* SF-Pro-Display-Regular.otf */; };
+		26DBD6F12DFACE5D004ED717 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6F02DFACE5D004ED717 /* Model.swift */; };
+		26DBD6F52DFAE881004ED717 /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6F42DFAE881004ED717 /* ProductsView.swift */; };
+		26DBD6F72DFAEE65004ED717 /* MocData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6F62DFAEE65004ED717 /* MocData.swift */; };
+		26DBD6FA2DFAF2E4004ED717 /* ProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6F92DFAF2E4004ED717 /* ProductCardView.swift */; };
+		26DBD6FE2DFB3A67004ED717 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBD6FD2DFB3A67004ED717 /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesAndDiscountsView.swift; sourceTree = "<group>"; };
+		264D211B2DF9DC2600F0A179 /* Image+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Name.swift"; sourceTree = "<group>"; };
+		264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircleView.swift; sourceTree = "<group>"; };
 		266E23832DF9D12B00D79B04 /* WBPartnersIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WBPartnersIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		266E239F2DF9D18500D79B04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		266E23A02DF9D18500D79B04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		266E23A12DF9D18500D79B04 /* WBPartnersIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBPartnersIOSApp.swift; sourceTree = "<group>"; };
+		26DBD6DF2DFAB52F004ED717 /* ABeeZee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABeeZee-Regular.ttf"; sourceTree = "<group>"; };
+		26DBD6E22DFAB576004ED717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		26DBD6E32DFAB602004ED717 /* Extension+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Font.swift"; sourceTree = "<group>"; };
+		26DBD6E52DFABAA9004ED717 /* Extension+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Color.swift"; sourceTree = "<group>"; };
+		26DBD6E72DFABDB3004ED717 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		26DBD6F02DFACE5D004ED717 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		26DBD6F42DFAE881004ED717 /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
+		26DBD6F62DFAEE65004ED717 /* MocData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocData.swift; sourceTree = "<group>"; };
+		26DBD6F92DFAF2E4004ED717 /* ProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardView.swift; sourceTree = "<group>"; };
+		26DBD6FD2DFB3A67004ED717 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,6 +63,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		264D211A2DF9DBFB00F0A179 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				264D211B2DF9DC2600F0A179 /* Image+Name.swift */,
+				26DBD6E52DFABAA9004ED717 /* Extension+Color.swift */,
+				26DBD6E32DFAB602004ED717 /* Extension+Font.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		266E237A2DF9D12B00D79B04 = {
 			isa = PBXGroup;
 			children = (
@@ -57,8 +92,15 @@
 		266E23A62DF9D1F500D79B04 /* WBPartnersIOS */ = {
 			isa = PBXGroup;
 			children = (
+				26DBD6E22DFAB576004ED717 /* Info.plist */,
 				266E23AA2DF9D22C00D79B04 /* App */,
+				26DBD6FC2DFB3A51004ED717 /* Router */,
 				266E23AB2DF9D24100D79B04 /* Views */,
+				26DBD6EA2DFACBA1004ED717 /* Components */,
+				26DBD6ED2DFACE13004ED717 /* Model */,
+				264D211A2DF9DBFB00F0A179 /* Extension */,
+				26DBD6E12DFAB53B004ED717 /* CustomFonts */,
+				26DBD6F82DFAEE6A004ED717 /* MOC */,
 				266E239F2DF9D18500D79B04 /* Assets.xcassets */,
 				266E23A82DF9D21400D79B04 /* Preview Content */,
 			);
@@ -77,8 +119,52 @@
 			isa = PBXGroup;
 			children = (
 				266E23A02DF9D18500D79B04 /* ContentView.swift */,
+				26DBD6F42DFAE881004ED717 /* ProductsView.swift */,
+				264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		26DBD6E12DFAB53B004ED717 /* CustomFonts */ = {
+			isa = PBXGroup;
+			children = (
+				26DBD6E72DFABDB3004ED717 /* SF-Pro-Display-Regular.otf */,
+				26DBD6DF2DFAB52F004ED717 /* ABeeZee-Regular.ttf */,
+			);
+			path = CustomFonts;
+			sourceTree = "<group>";
+		};
+		26DBD6EA2DFACBA1004ED717 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */,
+				26DBD6F92DFAF2E4004ED717 /* ProductCardView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		26DBD6ED2DFACE13004ED717 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				26DBD6F02DFACE5D004ED717 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		26DBD6F82DFAEE6A004ED717 /* MOC */ = {
+			isa = PBXGroup;
+			children = (
+				26DBD6F62DFAEE65004ED717 /* MocData.swift */,
+			);
+			path = MOC;
+			sourceTree = "<group>";
+		};
+		26DBD6FC2DFB3A51004ED717 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				26DBD6FD2DFB3A67004ED717 /* Router.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +231,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DBD6E02DFAB52F004ED717 /* ABeeZee-Regular.ttf in Resources */,
+				26DBD6E82DFABDB3004ED717 /* SF-Pro-Display-Regular.otf in Resources */,
 				266E23A52DF9D18500D79B04 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,8 +244,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264D211E2DF9E58B00F0A179 /* LoadingCircleView.swift in Sources */,
+				26DBD6E42DFAB602004ED717 /* Extension+Font.swift in Sources */,
 				266E23A22DF9D18500D79B04 /* ContentView.swift in Sources */,
+				264D21192DF9D63200F0A179 /* PricesAndDiscountsView.swift in Sources */,
+				26DBD6FE2DFB3A67004ED717 /* Router.swift in Sources */,
+				264D211C2DF9DC2600F0A179 /* Image+Name.swift in Sources */,
 				266E23A32DF9D18500D79B04 /* WBPartnersIOSApp.swift in Sources */,
+				26DBD6E62DFABAA9004ED717 /* Extension+Color.swift in Sources */,
+				26DBD6F12DFACE5D004ED717 /* Model.swift in Sources */,
+				26DBD6F52DFAE881004ED717 /* ProductsView.swift in Sources */,
+				26DBD6FA2DFAF2E4004ED717 /* ProductCardView.swift in Sources */,
+				26DBD6F72DFAEE65004ED717 /* MocData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +392,7 @@
 				DEVELOPMENT_TEAM = LT54Q8Z33F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WBPartnersIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -327,6 +426,7 @@
 				DEVELOPMENT_TEAM = LT54Q8Z33F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WBPartnersIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
