@@ -10,12 +10,10 @@ import SwiftUI
 struct ProductCardView: View {
     let product: Product
     var body: some View {
-        VStack{
+        VStack(spacing: 0){
             HStack(alignment: .top, spacing: 15){
-                AsyncImage(url: URL(string: product.thumbnail ?? "")) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
+                
+                RemoteImage(url: product.thumbnail, contentMode: .fit)
                         .frame(width: 84, height: 116)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
@@ -23,9 +21,7 @@ struct ProductCardView: View {
                                 .stroke(Color.wbColor.background, lineWidth: 1)
                         )
                     
-                } placeholder: {
-                    ProgressView()
-                }
+                
                 VStack(alignment: .leading){
                     Text(product.category)
                     Text(product.title)
@@ -46,12 +42,15 @@ struct ProductCardView: View {
             .frame(height: 152)
             .frame(maxWidth: .infinity)
             .background(Color.red)
-            .padding()
-            Spacer()
+            .padding(.horizontal)
+            PriceSummaryView(text: "Цена продовца до скидки", priceDetails: product.price)
+            PriceSummaryView(text: "Скидка продовца", priceDetails: product.discountPercentage)
+            PriceSummaryView(text: "цена со скидкой", priceDetails: product.discountedPrice)
+            //Spacer()
         }
         .frame(maxWidth: .infinity)
         .frame(height: 240)
-        .background(Color.gray)
+        .background(Color.blue)
         .onAppear{
             print(product)
         }

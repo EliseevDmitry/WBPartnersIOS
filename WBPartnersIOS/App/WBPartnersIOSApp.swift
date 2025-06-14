@@ -22,6 +22,7 @@ struct WBPartnersIOSApp: App {
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .background {
                 removeCopiedID()
+                Dependency.shared.imageCacheManager.clear()
             }
         }
     }

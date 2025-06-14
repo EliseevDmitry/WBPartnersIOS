@@ -48,11 +48,14 @@ struct ProductsView: View {
         _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
         }
     var body: some View {
-        ScrollView {
-            LazyVStack(pinnedViews: [.sectionHeaders]){
-                Section(header: stickyHeader) {bodyProducts}
+        GeometryReader{ geometry in
+            ScrollView {
+                LazyVStack(pinnedViews: [.sectionHeaders]){
+                    Section(header: stickyHeader) {bodyProducts}
+                }
+                .confirmationDialog("", isPresented: $viewModel.showDialog, titleVisibility: .hidden) {copyIDDialog}
             }
-            .confirmationDialog("", isPresented: $viewModel.showDialog, titleVisibility: .hidden) {copyIDDialog}
+           .environment(\.screenWidth, geometry.size.width)
         }
         .background(Color.wbColor.background)
         .onAppear{

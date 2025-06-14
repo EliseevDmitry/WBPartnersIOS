@@ -104,36 +104,37 @@ struct PricesAndDiscountsView: View {
     
     private var errorStateView: some View {
         Group {
-            if let name = loadingState.imageName {
-                Image(name)
-            }
-            Text("Что то пошло не так")
-                .font(.titleABeeZeeRegular())
-                .foregroundStyle(Color.wbColor.text)
-            Text("Попробуйте позднее")
-                .font(.titleABeeZeeRegular())
-                .foregroundStyle(Color.wbColor.textPrimary)
-            Button {
-                router.push(.pricesAndDiscounts(.loading))
-                Task {
-                    switch await viewModel.isInternetReallyAvailable() {
-                    case true:
-                        router.push(.productsInternet)
-                    case false:
-                        router.push(.productsLocal)
+                if let name = loadingState.imageName {
+                    Image(name)
+                }
+                Text("Что то пошло не так")
+                    .font(.titleABeeZeeRegular())
+                    .foregroundStyle(Color.wbColor.text)
+                Text("Попробуйте позднее")
+                    .font(.titleABeeZeeRegular())
+                    .foregroundStyle(Color.wbColor.textPrimary)
+                Button {
+                    router.push(.pricesAndDiscounts(.loading))
+                    Task {
+                        switch await viewModel.isInternetReallyAvailable() {
+                        case true:
+                            router.push(.productsInternet)
+                        case false:
+                            router.push(.productsLocal)
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Image(.refreshicon)
+                        Text("Обновить")
+                            .tint(.white)
                     }
                 }
-            } label: {
-                HStack {
-                    Image(.refreshicon)
-                    Text("Обновить")
-                        .tint(.white)
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 8)
-            .background(Color.wbColor.buttons)
-            .clipShape(.rect(cornerRadius: 10))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 8)
+                .background(Color.wbColor.buttons)
+                .clipShape(.rect(cornerRadius: 10))
+
         }
     }
 }
