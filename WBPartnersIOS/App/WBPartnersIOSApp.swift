@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct WBPartnersIOSApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     init() {
         configureNavigationBarAppearance()
     }
@@ -17,6 +18,11 @@ struct WBPartnersIOSApp: App {
         WindowGroup {
             RoutingView()
                 .environmentObject(router)
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                removeCopiedID()
+            }
         }
     }
     
@@ -31,5 +37,9 @@ struct WBPartnersIOSApp: App {
         ]
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
+    private func removeCopiedID() {
+        UIPasteboard.general.string = nil
     }
 }

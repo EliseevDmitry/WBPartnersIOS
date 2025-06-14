@@ -18,6 +18,5 @@ extension Font {
     static func titleSFProRegular() -> Font {
         return Font.custom("SFProDisplay-Regular", size: 18)
     }
-    
-    
+ 
 }

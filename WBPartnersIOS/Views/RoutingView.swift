@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RoutingView: View {
     @EnvironmentObject var router: Router
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -42,8 +41,10 @@ struct RoutingView: View {
     @ViewBuilder
         private func destinationView(for route: AppRoute) -> some View {
             switch route {
-            case .products:
-                ProductsView()
+            case .productsInternet:
+                ProductsView(selectedSegment: 0)
+            case .productsLocal:
+                ProductsView(selectedSegment: 1)
             case .pricesAndDiscounts(let state):
                 PricesAndDiscountsView(loadingState: .constant(state))
             }

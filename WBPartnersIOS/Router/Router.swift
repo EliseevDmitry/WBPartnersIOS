@@ -8,7 +8,8 @@
 import SwiftUI
 
 enum AppRoute: Hashable {
-    case products
+    case productsInternet
+    case productsLocal
     case pricesAndDiscounts(StatePricesView)
 }
 

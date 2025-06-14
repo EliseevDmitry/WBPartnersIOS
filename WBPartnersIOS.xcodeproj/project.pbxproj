@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262C687B2DFD49F50025A57F /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262C687A2DFD49F50025A57F /* ProductManager.swift */; };
+		262C687E2DFD7BE20025A57F /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262C687D2DFD7BE20025A57F /* Dependency.swift */; };
 		264D21192DF9D63200F0A179 /* PricesAndDiscountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */; };
 		264D211C2DF9DC2600F0A179 /* Image+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211B2DF9DC2600F0A179 /* Image+Name.swift */; };
 		264D211E2DF9E58B00F0A179 /* LoadingCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		262C687A2DFD49F50025A57F /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
+		262C687D2DFD7BE20025A57F /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesAndDiscountsView.swift; sourceTree = "<group>"; };
 		264D211B2DF9DC2600F0A179 /* Image+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Name.swift"; sourceTree = "<group>"; };
 		264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircleView.swift; sourceTree = "<group>"; };
@@ -63,6 +67,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		262C68792DFD49D10025A57F /* ProductManager */ = {
+			isa = PBXGroup;
+			children = (
+				262C687A2DFD49F50025A57F /* ProductManager.swift */,
+			);
+			path = ProductManager;
+			sourceTree = "<group>";
+		};
+		262C687C2DFD7BC30025A57F /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				262C687D2DFD7BE20025A57F /* Dependency.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 		264D211A2DF9DBFB00F0A179 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +115,8 @@
 				26DBD6E22DFAB576004ED717 /* Info.plist */,
 				266E23AA2DF9D22C00D79B04 /* App */,
 				26DBD6FC2DFB3A51004ED717 /* Router */,
+				262C687C2DFD7BC30025A57F /* DI */,
+				262C68792DFD49D10025A57F /* ProductManager */,
 				266E23AB2DF9D24100D79B04 /* Views */,
 				26DBD6EA2DFACBA1004ED717 /* Components */,
 				26DBD6ED2DFACE13004ED717 /* Model */,
@@ -253,8 +275,10 @@
 				266E23A32DF9D18500D79B04 /* WBPartnersIOSApp.swift in Sources */,
 				26DBD6E62DFABAA9004ED717 /* Extension+Color.swift in Sources */,
 				26DBD6F12DFACE5D004ED717 /* Model.swift in Sources */,
+				262C687E2DFD7BE20025A57F /* Dependency.swift in Sources */,
 				26DBD6F52DFAE881004ED717 /* ProductsView.swift in Sources */,
 				26DBD6FA2DFAF2E4004ED717 /* ProductCardView.swift in Sources */,
+				262C687B2DFD49F50025A57F /* ProductManager.swift in Sources */,
 				26DBD6F72DFAEE65004ED717 /* MocData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

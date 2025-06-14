@@ -7,34 +7,46 @@
 
 import SwiftUI
 
-protocol IProductView {
-    func copyID(id: String)
-    func removeCopiedID()
-}
 
-final class ProductViewModel: ObservableObject, IProductView {
+final class ProductViewModel: ObservableObject {
     @Published var products: [Product] = []
-    @Published var selectedSegment = 0
+    @Published var selectedSegment: Int
     @Published var selectedProduct: Product? = nil
     @Published var showDialog = false
+    private var productManager: IProductManager
     
-    init() {
-        self.products.append(MocData.testProduct)
-        self.products.append(MocData.testProduct1)
-        self.products.append(MocData.testProduct2)
+    init(manager: IProductManager, selectedSegment: Int) {
+        self.productManager = manager
+        self.selectedSegment = selectedSegment
+       // self.products.append(MocData.testProduct)
     }
     
     func copyID(id: String){
         UIPasteboard.general.string = id
     }
     
-    func removeCopiedID() {
-        UIPasteboard.general.string = nil
+    func getProducts() {
+        Task {
+            do {
+                let data = try await productManager.fetchData()
+                let decoded = try productManager.getProducts(of: ProductsResponse.self, data: data)
+                
+                await MainActor.run {
+                    self.products = decoded.products
+                }
+            } catch {
+                print("Ошибка получения данных: \(error)")
+            }
+        }
     }
+    
 }
 
 struct ProductsView: View {
-    @StateObject private var viewModel = ProductViewModel()
+    @StateObject private var viewModel: ProductViewModel
+    init(selectedSegment: Int) {
+        _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
+        }
     var body: some View {
         ScrollView {
             LazyVStack(pinnedViews: [.sectionHeaders]){
@@ -43,8 +55,8 @@ struct ProductsView: View {
             .confirmationDialog("", isPresented: $viewModel.showDialog, titleVisibility: .hidden) {copyIDDialog}
         }
         .background(Color.wbColor.background)
-        .onDisappear{
-            viewModel.removeCopiedID()
+        .onAppear{
+            viewModel.getProducts()
         }
     }
     
@@ -65,7 +77,7 @@ struct ProductsView: View {
     
     //scroll products UI
     private var bodyProducts: some View {
-        ForEach(viewModel.products, id: \.id) { product in
+        ForEach(viewModel.products) { product in
             ProductCardView(product: product)
                 .onTapGesture {
                     viewModel.selectedProduct = product
@@ -95,6 +107,6 @@ struct ProductsView: View {
 
 #Preview {
     NavigationView(content: {
-        ProductsView()
+        ProductsView(selectedSegment: 0)
     })
 }

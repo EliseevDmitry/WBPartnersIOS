@@ -12,20 +12,26 @@ struct ProductCardView: View {
     var body: some View {
         VStack{
             HStack(alignment: .top, spacing: 15){
-                Image(product.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 84, height: 116)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.wbColor.background, lineWidth: 1)
-                    )
+                AsyncImage(url: URL(string: product.thumbnail ?? "")) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 84, height: 116)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.wbColor.background, lineWidth: 1)
+                        )
+                    
+                } placeholder: {
+                    ProgressView()
+                }
                 VStack(alignment: .leading){
-                    Text(product.category.rawValue)
-                    Text(product.name)
+                    Text(product.category)
+                    Text(product.title)
                     Text(product.id)
                     Text(product.wbId)
+                    Text("\(product.discountedPrice)")
                 }
                 Spacer()
                 Button{
@@ -46,7 +52,9 @@ struct ProductCardView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 240)
         .background(Color.gray)
-        
+        .onAppear{
+            print(product)
+        }
     }
 }
 
