@@ -25,7 +25,6 @@ final class Router: ObservableObject {
     }
 
     func pop() {
-       // currentRoute = nil
         currentRoute = .pricesAndDiscounts(.error)
     }
 }

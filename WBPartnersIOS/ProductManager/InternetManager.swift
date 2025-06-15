@@ -8,6 +8,10 @@
 import Foundation
 import Network
 
+enum HTTPMethod: String {
+    case head = "HEAD"
+}
+
 protocol IInternetManager {
     func isInternetReallyAvailable() async -> Bool
 }
@@ -23,7 +27,7 @@ final class InternetManager: IInternetManager {
             return false
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "HEAD"
+        request.httpMethod = HTTPMethod.head.rawValue
         request.timeoutInterval = 5
         do {
             let (_, response) = try await URLSession.shared.data(for: request)

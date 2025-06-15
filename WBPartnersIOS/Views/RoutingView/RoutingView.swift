@@ -28,17 +28,20 @@ struct RoutingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if shouldShowBackButton() {
-                        Button(action: {
-                            router.pop()
-                        }) {
-                            Image(systemName: CustomImage.backButton.rawValue)
-                                .foregroundColor(.blue)
-                        }
+                        backButton
                     }
                 }
             }
         }
-        
+    }
+    
+    private var backButton: some View {
+        Button(action: {
+            router.pop()
+        }) {
+            Image(systemName: CustomImage.backButton.rawValue)
+                .foregroundColor(.blue)
+        }
     }
     
     @ViewBuilder

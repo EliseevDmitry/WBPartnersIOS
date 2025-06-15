@@ -73,9 +73,3 @@ struct Product: Codable, Identifiable {
             .joined()
     }
 }
-
-extension Product {
-    var discountedPrice: Double {
-        return price * (1 - discountPercentage / 100)
-    }
-}

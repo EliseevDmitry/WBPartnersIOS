@@ -8,6 +8,10 @@
 import SwiftUI
 import Kingfisher
 
+/*
+ Абстракция для удобной замены библиотеки загрузки и кеширования изображений
+ */
+
 struct ImageCacheManager {
     init(){
         configure()

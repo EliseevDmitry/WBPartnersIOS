@@ -6,6 +6,7 @@
 //
 import Foundation
 
+//статическая конвертация $ <-> ₽ - по фиксированному курсу 79.7
 enum LocalizeDouble: String {
     case rub = "₽"
     case usd = "$"
