@@ -7,20 +7,45 @@
 
 import SwiftUI
 
+/*
+ Требование: "Интерфейс должен маĸсимально точно соответствовать маĸету"
+ Использование - magic numbers - плохая практика, старался не прибегать,
+ или минимизировать их использование (сложно было понять термин - маĸсимально точно).
+ Теоретически можно было - перенести всю геометрию Figma в текущих размерах в уравнения,
+ через GR при старте приложения считать wight и height (конкретного устройства)
+ и через систему уравнений - пересчитывать интерфейс (максимальное масштабирование под устройство).
+ */
+
+enum LocalizeProducts: String {
+    case all = "Все"
+    case withoutPrice = "Без цены"
+    case copyItem = "Скопировать артикул"
+    case copyWBItem = "Скопировать артикул WB"
+    case cancel = "Отмена"
+}
+
+enum PickerSegment: Int {
+    case zero = 0
+    case one = 1
+}
+
 
 final class ProductViewModel: ObservableObject {
+    private var productManager: IProductManager
     @Published var products: [Product] = []
-    @Published var selectedSegment: Int
     @Published var selectedProduct: Product? = nil
     @Published var showDialog = false
-    private var productManager: IProductManager
-    
-    init(manager: IProductManager, selectedSegment: Int) {
+    @Published var selectedSegment: PickerSegment {
+            didSet {
+                handleSegmentChange()
+            }
+        }
+
+    init(manager: IProductManager, selectedSegment: PickerSegment) {
         self.productManager = manager
         self.selectedSegment = selectedSegment
-       // self.products.append(MocData.testProduct)
     }
-    
+
     func copyID(id: String){
         UIPasteboard.general.string = id
     }
@@ -40,14 +65,32 @@ final class ProductViewModel: ObservableObject {
         }
     }
     
+    private func handleSegmentChange() {
+        switch selectedSegment {
+        case PickerSegment.zero:
+            print("сегмент 0")
+        case PickerSegment.one:
+            print("сегмент 1")
+        }
+    }
 }
 
 struct ProductsView: View {
     @StateObject private var viewModel: ProductViewModel
-    init(selectedSegment: Int) {
-        _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
-        }
+    init(selectedSegment: PickerSegment) {
+        switch selectedSegment {
+        case .zero:
+            _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
+        case .one:
+            _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.dataManager, selectedSegment: selectedSegment))
+        }  
+    }
     var body: some View {
+        /*
+         Использую GeometryReader, чтобы передать ширину экрана через EnvironmentValues.
+         Это значение потом применяю при отрисовке пунктирной линии.
+         Сделано для оптимизации: ширина вычисляется один раз на общий экран.
+         */
         GeometryReader{ geometry in
             ScrollView {
                 LazyVStack(pinnedViews: [.sectionHeaders]){
@@ -55,10 +98,12 @@ struct ProductsView: View {
                 }
                 .confirmationDialog("", isPresented: $viewModel.showDialog, titleVisibility: .hidden) {copyIDDialog}
             }
-           .environment(\.screenWidth, geometry.size.width)
+            .environment(\.screenWidth, geometry.size.width)
         }
         .background(Color.wbColor.background)
+        .dynamicTypeSize(.xLarge)
         .onAppear{
+            
             viewModel.getProducts()
         }
     }
@@ -68,9 +113,9 @@ struct ProductsView: View {
         ZStack {
             Color.wbColor.wBackground
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            Picker("Сегмент", selection: $viewModel.selectedSegment) {
-                Text("Все").tag(0)
-                Text("Без цены").tag(1)
+            Picker("", selection: $viewModel.selectedSegment) {
+                Text(LocalizeProducts.all.rawValue).tag(PickerSegment.zero)
+                Text(LocalizeProducts.withoutPrice.rawValue).tag(PickerSegment.one)
             }
             .pickerStyle(.segmented)
             .padding(.horizontal, 16)
@@ -80,36 +125,40 @@ struct ProductsView: View {
     
     //scroll products UI
     private var bodyProducts: some View {
-        ForEach(viewModel.products) { product in
+        ForEach(Array(viewModel.products.enumerated()), id: \.element.id) { index, product in
             ProductCardView(product: product)
+                .padding(.top, index == 0 ? 5 : 0)
                 .onTapGesture {
                     viewModel.selectedProduct = product
                     viewModel.showDialog = true
                 }
         }
     }
-
+    
     //confirmationDialog UI
     private var copyIDDialog: some View {
         Group{
-            Button("Скопировать артикул") {
+            Button(LocalizeProducts.copyItem.rawValue) {
                 if let id = viewModel.selectedProduct?.id {
                     viewModel.copyID(id: id)
                 }
             }
-            Button("Скопировать артикул WB") {
+            Button(LocalizeProducts.copyWBItem.rawValue) {
                 if let wbId = viewModel.selectedProduct?.wbId {
                     viewModel.copyID(id: wbId)
                 }
             }
-            Button("Отмена", role: .cancel) {}
+            Button(LocalizeProducts.cancel.rawValue, role: .cancel) {}
         }
     }
-  
+    
 }
 
 #Preview {
     NavigationView(content: {
-        ProductsView(selectedSegment: 0)
+        ProductsView(selectedSegment: PickerSegment.one)
+            .navigationTitle(LocalizeRouting.title.rawValue)
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(edges: .bottom)
     })
 }

@@ -11,12 +11,24 @@ import UIKit
 extension Font {
     static let aBeeZeeRegular = UIFont(name: "ABeeZee-Regular", size: 18) ?? .systemFont(ofSize: 18)
     
-    static func titleABeeZeeRegular() -> Font {
+    static func titleABeeZeeRegular18() -> Font {
         return Font(aBeeZeeRegular)
     }
+    
+    static func titleABeeZeeRegular14() -> Font {
+        return Font.custom("ABeeZee-Regular", size: 14)
+    }
 
-    static func titleSFProRegular() -> Font {
+    static func titleSFProRegular18() -> Font {
         return Font.custom("SFProDisplay-Regular", size: 18)
+    }
+    
+    static func titleSFProRegular14() -> Font {
+        return Font.custom("SFProDisplay-Regular", size: 14)
+    }
+    
+    static func titleSFProRegular16() -> Font {
+        return Font.custom("SFProDisplay-Regular", size: 16)
     }
  
 }

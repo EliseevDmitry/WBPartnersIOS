@@ -18,6 +18,9 @@ struct ColorTheme {
     let background = Color("background")
     let textPrimary = Color("textPrimary")
     let buttons = Color("buttons")
+    let burgerButton = Color("burgerButton")
+    let titlePriceSummary = Color("titlePriceSummary")
+    let dashesLine = Color("dashesLine")
 }
 
 extension ColorTheme {

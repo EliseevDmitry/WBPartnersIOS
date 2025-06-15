@@ -21,9 +21,9 @@ enum StatePricesView {
     var imageName: String? {
         switch self {
         case .error:
-            "illustration-circle-error"
+            CustomImage.errorView.rawValue
         case .empty:
-            "illustration-flashlight-guide"
+            CustomImage.emptyView.rawValue
         case .loading:
             nil
         }
@@ -40,48 +40,14 @@ enum StatePricesView {
  */
 
 final class PricesAndDiscountsViewModel: ObservableObject {
+    
     @Published var isAnimating = false
     
-    
-    //проверка интернет соединения
-    //Проверка selectedSegment при переходе на страницу "Все товары" или "Товары без цены"
-    //В логике моего приложения "Все товары" -> сетевой запрос (true)
-    //"Товары без цены" -> загрузка из локального хранилища (false)
-    private func checkInternetConnection() async -> Bool {
-        return await withCheckedContinuation { continuation in
-            let monitor = NWPathMonitor()
-            let queue = DispatchQueue(label: "InternetCheck")
-            monitor.pathUpdateHandler = { path in
-                continuation.resume(returning: path.status == .satisfied)
-                monitor.cancel()
-            }
-            monitor.start(queue: queue)
-        }
-    }
-    
-    //дополнительная проверка доступа к ресурсу
-    //функция checkInternetConnection() не отрабатывает при включенном VPN
     func isInternetReallyAvailable() async -> Bool {
-        let monitorStatus = await checkInternetConnection()
-        if !monitorStatus { return false }
-        
-        guard let url = URL(string: "https://apple.com") else { return false }
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5
-        
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse, 200..<400 ~= httpResponse.statusCode {
-                return true
-            }
-        } catch {
-            // Ошибка запроса — интернет, вероятно, недоступен
-        }
-        return false
+        await Dependency.shared.internetManager.isInternetReallyAvailable()
     }
     
 }
-
 
 struct PricesAndDiscountsView: View {
     @EnvironmentObject var router: Router
@@ -127,6 +93,7 @@ struct PricesAndDiscountsView: View {
                 Image(name)
             }
             Text(LocalizePrices.notFound.rawValue)
+                .font(.titleSFProRegular18())
         }
     }
     
@@ -138,26 +105,18 @@ struct PricesAndDiscountsView: View {
             VStack{
                 VStack {
                     Text(LocalizePrices.fail.rawValue)
-                        .font(.titleABeeZeeRegular())
+                        .font(.titleABeeZeeRegular18())
                         .foregroundStyle(Color.wbColor.text)
                         .frame(height: 24)
                     Spacer()
                     Text(LocalizePrices.tryLater.rawValue)
-                        .font(.titleABeeZeeRegular())
+                        .font(.titleABeeZeeRegular18())
                         .foregroundStyle(Color.wbColor.textPrimary)
                 }
                 .frame(height: 52)
                 Spacer()
                 Button {
-                    router.push(.pricesAndDiscounts(.loading))
-                    Task {
-                        switch await viewModel.isInternetReallyAvailable() {
-                        case true:
-                            router.push(.productsInternet)
-                        case false:
-                            router.push(.productsLocal)
-                        }
-                    }
+                    goToProductsView()
                 } label: {
                     HStack {
                         Image(CustomImage.button.rawValue)
@@ -171,6 +130,18 @@ struct PricesAndDiscountsView: View {
                 .clipShape(.rect(cornerRadius: 10))
             }
             .frame(height: 108)
+        }
+    }
+    
+    private func goToProductsView(){
+        router.push(.pricesAndDiscounts(.loading))
+        Task {
+            switch await viewModel.isInternetReallyAvailable() {
+            case true:
+                router.push(.productsInternet)
+            case false:
+                router.push(.productsLocal)
+            }
         }
     }
 }

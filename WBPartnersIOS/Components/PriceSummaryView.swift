@@ -7,50 +7,73 @@
 
 import SwiftUI
 
+/*
+ Требование: "Интерфейс должен маĸсимально точно соответствовать маĸету"
+ Использование - magic numbers - плохая практика, старался не прибегать,
+ или минимизировать их использование (сложно было понять термин - маĸсимально точно).
+ Теоретически можно было - перенести всю геометрию Figma в текущих размерах в уравнения,
+ через GR при старте приложения считать wight и height (конкретного устройства)
+ и через систему уравнений - пересчитывать интерфейс (максимальное масштабирование под устройство).
+ */
+
 struct PriceSummaryView: View {
     let text: String
     let priceDetails: Double
-
+    let currency: String?
     var body: some View {
-            
         ZStack(alignment: .bottom){
             HStack {
                 Text("\(text) ")
+                    .font(.titleABeeZeeRegular14())
+                    .foregroundStyle(Color.wbColor.titlePriceSummary)
                     .background(Color.white)
                 Spacer()
-                Text(" 100000")
-                    .background(Color.white)
+                Text(formattedPriceText)
+                    .font(.titleSFProRegular14())
+                    .foregroundStyle(Color.wbColor.textPrimary)
+                    .background(Color.wbColor.wBackground)
             }
             DashesLine()
                 .offset(CGSize(width: 0, height: -4))
                 .zIndex(-1)
+                .foregroundStyle(Color.wbColor.dashesLine)
+        }
+    }
+    
+    private var formattedPriceText: String {
+        if let currency {
+            return priceDetails.formattedPrice(currencyCode: currency, convertFromBase: true)
+        } else {
+            return priceDetails.formattedPercentage()
         }
     }
 }
 
-
 struct DashesLine: View {
     @Environment(\.screenWidth) private var screenWidth
-    let dashCount = 29
-    let gapCount = 28
+    let dashCount = 35
+    let gapCount = 34
     let lineHeight: CGFloat = 1
     let cornerRadius: CGFloat = 0.5
     var body: some View {
-            let dashWidth = screenWidth / (CGFloat(dashCount) + CGFloat(gapCount) / 2)
-            let gapWidth = dashWidth / 2
-            
-            HStack(spacing: gapWidth) {
-                ForEach(0..<dashCount, id: \.self) { _ in
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .frame(width: dashWidth, height: lineHeight)
-                }
+        let dashWidth = (screenWidth - 32) / (CGFloat(dashCount) + CGFloat(gapCount) / 2)
+        let gapWidth = dashWidth / 2
+        HStack(spacing: gapWidth) {
+            ForEach(0..<dashCount, id: \.self) { _ in
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .frame(width: dashWidth, height: lineHeight)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
-
 #Preview {
-    PriceSummaryView(text: "Цена продовца до скидки", priceDetails: 100000)
-        .environment(\.screenWidth, 375)
+    PriceSummaryView(
+        text: MocData.testProduct.title,
+        priceDetails: MocData.testProduct.price,
+        currency: MocData.testProduct.currency
+    )
+    .environment(\.screenWidth, 375)
+    .padding(.horizontal)
 }
