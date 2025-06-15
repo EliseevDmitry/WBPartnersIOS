@@ -150,6 +150,7 @@ struct PricesAndDiscountsView: View {
             }
         }
     }
+    
 }
 
 //navigationTitle и ignoresSafeArea - настраиваются для всех в RoutingView

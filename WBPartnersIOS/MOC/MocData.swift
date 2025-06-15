@@ -15,5 +15,4 @@ struct MocData {
         discountPercentage: 10,
         thumbnail: "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp"
     )
-    
 }

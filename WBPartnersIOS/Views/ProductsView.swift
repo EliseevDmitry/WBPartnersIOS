@@ -22,6 +22,7 @@ enum LocalizeProducts: String {
     case copyItem = "Скопировать артикул"
     case copyWBItem = "Скопировать артикул WB"
     case cancel = "Отмена"
+    case copy = "Скопированый ID = "
 }
 
 enum PickerSegment: Int {
@@ -35,15 +36,27 @@ final class ProductViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var selectedProduct: Product? = nil
     @Published var showDialog = false
+    @Published var showToast = false
     @Published var selectedSegment: PickerSegment
+
 
     init(manager: IProductManager, selectedSegment: PickerSegment) {
         self.productManager = manager
         self.selectedSegment = selectedSegment
     }
 
-    func copyID(id: String){
-        UIPasteboard.general.string = id
+    func copyID(id: String) {
+            UIPasteboard.general.string = id
+            Task { @MainActor in
+                showToast = true
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                showToast = false
+            }
+        }
+    
+    func showID() -> String {
+        guard let message = UIPasteboard.general.string else { return ""}
+        return message
     }
     
     func getProducts() {
@@ -92,11 +105,13 @@ struct ProductsView: View {
                 .confirmationDialog("", isPresented: $viewModel.showDialog, titleVisibility: .hidden) {copyIDDialog}
             }
             .environment(\.screenWidth, geometry.size.width)
+            .overlay(
+                toastView
+            )
         }
         .background(Color.wbColor.background)
         .dynamicTypeSize(.xLarge)
         .onAppear{
-            
             viewModel.getProducts()
         }
     }
@@ -161,6 +176,18 @@ struct ProductsView: View {
         }
     }
     
+    private var toastView: some View {
+        Group {
+            if viewModel.showToast {
+                ToastView(
+                    message: LocalizeProducts.copy.rawValue + viewModel.showID()
+                )
+                .animation(.easeInOut, value: viewModel.showToast)
+                .transition(.opacity)
+            }
+        }
+    }
+    
 }
 
 #Preview {
@@ -169,5 +196,6 @@ struct ProductsView: View {
             .navigationTitle(LocalizeRouting.title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(edges: .bottom)
+            .environmentObject(Router())
     })
 }

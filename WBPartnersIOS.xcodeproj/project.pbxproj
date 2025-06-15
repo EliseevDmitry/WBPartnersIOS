@@ -17,6 +17,7 @@
 		262E4E132DFEC01C0001E1C0 /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E4E122DFEC01C0001E1C0 /* InternetManager.swift */; };
 		262E4E152DFEC0FD0001E1C0 /* Extension+URLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E4E142DFEC0EA0001E1C0 /* Extension+URLResponse.swift */; };
 		262E4E172DFEC7B90001E1C0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E4E162DFEC7B90001E1C0 /* DataManager.swift */; };
+		262E4E192DFED6B70001E1C0 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E4E182DFED6B70001E1C0 /* ToastView.swift */; };
 		264D21192DF9D63200F0A179 /* PricesAndDiscountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */; };
 		264D211C2DF9DC2600F0A179 /* Image+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211B2DF9DC2600F0A179 /* Image+Name.swift */; };
 		264D211E2DF9E58B00F0A179 /* LoadingCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */; };
@@ -44,6 +45,7 @@
 		262E4E122DFEC01C0001E1C0 /* InternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
 		262E4E142DFEC0EA0001E1C0 /* Extension+URLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+URLResponse.swift"; sourceTree = "<group>"; };
 		262E4E162DFEC7B90001E1C0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		262E4E182DFED6B70001E1C0 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		264D21182DF9D63200F0A179 /* PricesAndDiscountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesAndDiscountsView.swift; sourceTree = "<group>"; };
 		264D211B2DF9DC2600F0A179 /* Image+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Name.swift"; sourceTree = "<group>"; };
 		264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircleView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				262C68F02DFDC0C30025A57F /* PriceSummaryView.swift */,
 				264D211D2DF9E58B00F0A179 /* LoadingCircleView.swift */,
 				26DBD6F92DFAF2E4004ED717 /* ProductCardView.swift */,
+				262E4E182DFED6B70001E1C0 /* ToastView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				26DBD6E42DFAB602004ED717 /* Extension+Font.swift in Sources */,
 				262C68F12DFDC0C50025A57F /* PriceSummaryView.swift in Sources */,
 				266E23A22DF9D18500D79B04 /* RoutingView.swift in Sources */,
+				262E4E192DFED6B70001E1C0 /* ToastView.swift in Sources */,
 				262C68D72DFD93A90025A57F /* RemoteImage.swift in Sources */,
 				264D21192DF9D63200F0A179 /* PricesAndDiscountsView.swift in Sources */,
 				26DBD6FE2DFB3A67004ED717 /* Router.swift in Sources */,
