@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 /*
  Требование: "Интерфейс должен маĸсимально точно соответствовать маĸету"
@@ -16,16 +17,14 @@ import SwiftUI
  и через систему уравнений - пересчитывать интерфейс (максимальное масштабирование под устройство).
  */
 
-
-
-
-
-
 struct ProductsView: View {
     @EnvironmentObject var router: Router
     @StateObject private var viewModel: ProductViewModel
     init(selectedSegment: PickerSegment) {
-            _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
+        _viewModel = StateObject(wrappedValue: ProductViewModel(manager: Dependency.shared.productManager, selectedSegment: selectedSegment))
+        UISegmentedControl.appearance().selectedSegmentTintColor = .white
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Color.wbColor.uiBlack, .font: Font.titleSFProRegular], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: Color.wbColor.uiTextPrimary, .font: Font.titleSFProRegular], for: .normal)
     }
     var body: some View {
         /*
@@ -58,16 +57,22 @@ struct ProductsView: View {
             Color.wbColor.wBackground
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             Picker("", selection: $viewModel.selectedSegment) {
-                Text(LocalizeProducts.all.rawValue).tag(PickerSegment.zero)
+                Text(LocalizeProducts.all.rawValue)
+                    .tag(PickerSegment.zero)
+                
                 Text(LocalizeProducts.withoutPrice.rawValue).tag(PickerSegment.one)
             }
             .pickerStyle(.segmented)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.wbColor.burgerButton)
+            )
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .onChange(of: viewModel.selectedSegment) { newValue in
                 switch newValue {
                 case PickerSegment.zero: break
-                   //
+                    //routing
                 case PickerSegment.one:
                     router.push(.pricesAndDiscounts(.loading))
                     Task {

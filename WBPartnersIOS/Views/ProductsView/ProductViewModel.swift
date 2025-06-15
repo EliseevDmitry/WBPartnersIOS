@@ -9,7 +9,7 @@ import UIKit
 
 enum LocalizeProducts: String {
     case all = "Все"
-    case withoutPrice = "Без цены"
+    case withoutPrice = "Товары без цены"
     case copyItem = "Скопировать артикул"
     case copyWBItem = "Скопировать артикул WB"
     case cancel = "Отмена"

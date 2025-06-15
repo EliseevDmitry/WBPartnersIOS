@@ -15,8 +15,8 @@ extension Color {
 struct ColorTheme {
     let uiWhite = UIColor.white
     let uiBlack = UIColor.black
+    let uiTextPrimary = UIColor(named: "textPrimary") ?? UIColor(red: 74/255, green: 74/255, blue: 89/255, alpha: 1)
     let background = Color("background")
-    let textPrimary = Color("textPrimary")
     let buttons = Color("buttons")
     let burgerButton = Color("burgerButton")
     let titlePriceSummary = Color("titlePriceSummary")
@@ -31,4 +31,9 @@ extension ColorTheme {
     var wBackground: Color {
         Color(uiWhite)
     }
+    
+    var textPrimary: Color {
+        Color(uiTextPrimary)
+    }
+    
 }

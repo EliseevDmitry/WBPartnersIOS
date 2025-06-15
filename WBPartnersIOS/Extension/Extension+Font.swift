@@ -23,8 +23,10 @@ extension Font {
         return Font.custom("SFProDisplay-Regular", size: 18)
     }
     
+    static let titleSFProRegular = UIFont(name: "SFProDisplay-Regular", size: 14) ?? .systemFont(ofSize: 18)
+    
     static func titleSFProRegular14() -> Font {
-        return Font.custom("SFProDisplay-Regular", size: 14)
+        return Font(titleSFProRegular)
     }
     
     static func titleSFProRegular16() -> Font {
