@@ -150,6 +150,18 @@ struct PricesAndDiscountsView: View {
             }
         }
     }
+    
+    private func goToProductsView(){
+        router.push(.pricesAndDiscounts(.loading))
+        Task {
+            switch await viewModel.isInternetReallyAvailable() {
+            case true:
+                router.push(.productsInternet)
+            case false:
+                router.push(.productsLocal)
+            }
+        }
+    }
 }
 
 //navigationTitle и ignoresSafeArea - настраиваются для всех в RoutingView
