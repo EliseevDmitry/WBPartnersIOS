@@ -14,29 +14,19 @@ enum URLProducts: String {
 protocol IProductManager {
     func fetchData() async throws -> Data
     func getProducts<T: Decodable>(of type: T.Type, data: Data) throws -> T
-    func validateResponse(_ response: URLResponse) throws
 }
 
 final class ProductManager: IProductManager {
-
+    
     func fetchData() async throws -> Data {
         guard let url = URL(string: URLProducts.products.rawValue) else {
             throw URLError(.badURL)
         }
         let (data, response) = try await URLSession.shared.data(from: url)
-        try validateResponse(response)
+        try response.validate()
         return data
     }
-
-    func validateResponse(_ response: URLResponse) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
-        }
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw URLError(.badServerResponse)
-        }
-    }
-
+    
 }
 
 extension ProductManager {

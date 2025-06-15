@@ -45,9 +45,9 @@ struct RoutingView: View {
     private func destinationView(for route: AppRoute) -> some View {
         switch route {
         case .productsInternet:
-            ProductsView(selectedSegment: 0)
+            ProductsView(selectedSegment: PickerSegment.zero)
         case .productsLocal:
-            ProductsView(selectedSegment: 1)
+            ProductsView(selectedSegment: PickerSegment.one)
         case .pricesAndDiscounts(let state):
             PricesAndDiscountsView(loadingState: .constant(state))
         }

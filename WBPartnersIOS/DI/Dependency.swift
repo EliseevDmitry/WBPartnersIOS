@@ -12,9 +12,13 @@ final class Dependency {
     
     let imageCacheManager: ImageCacheManager
     let productManager: IProductManager
+    let internetManager: IInternetManager
+    let dataManager: IProductManager
     
     private init(){
         self.imageCacheManager = ImageCacheManager()
         self.productManager = ProductManager()
+        self.internetManager = InternetManager()
+        self.dataManager = DataManager()
     }
 }
