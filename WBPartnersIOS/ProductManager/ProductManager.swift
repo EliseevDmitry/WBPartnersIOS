@@ -17,7 +17,6 @@ protocol IProductManager {
 }
 
 final class ProductManager: IProductManager {
-    
     func fetchData() async throws -> Data {
         guard let url = URL(string: URLProducts.products.rawValue) else {
             throw URLError(.badURL)
@@ -25,17 +24,5 @@ final class ProductManager: IProductManager {
         let (data, response) = try await URLSession.shared.data(from: url)
         try response.validate()
         return data
-    }
-    
-}
-
-extension ProductManager {
-    func getProducts<T: Decodable>(of type: T.Type, data: Data) throws -> T {
-        do {
-            let objects = try JSONDecoder().decode(T.self, from: data)
-            return objects
-        } catch {
-            throw error
-        }
     }
 }

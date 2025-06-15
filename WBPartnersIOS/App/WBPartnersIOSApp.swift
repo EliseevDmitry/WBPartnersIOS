@@ -42,7 +42,7 @@ struct WBPartnersIOSApp: App {
     
     private func removeCopiedID() {
         //убивает м/у приложениями
-        //не успел разобраться - как убить только при закрытии приложения
+        //не успел доделать - думаю что через делегат придется делать
         //UIPasteboard.general.string = nil
     }
 }

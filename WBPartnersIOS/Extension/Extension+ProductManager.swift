@@ -1,5 +1,5 @@
 //
-//  DataManader.swift
+//  Extension+ProductManager.swift
 //  WBPartnersIOS
 //
 //  Created by Dmitriy Eliseev on 15.06.2025.
@@ -7,13 +7,8 @@
 
 import Foundation
 
-final class DataManager: IProductManager {
-    func fetchData() async throws -> Data {
-        let data = Data()
-        return data
-    }
-    
-    func getProducts<T>(of type: T.Type, data: Data) throws -> T where T : Decodable {
+extension ProductManager {
+    func getProducts<T: Decodable>(of type: T.Type, data: Data) throws -> T {
         do {
             let objects = try JSONDecoder().decode(T.self, from: data)
             return objects
@@ -21,6 +16,4 @@ final class DataManager: IProductManager {
             throw error
         }
     }
-    
-    
 }

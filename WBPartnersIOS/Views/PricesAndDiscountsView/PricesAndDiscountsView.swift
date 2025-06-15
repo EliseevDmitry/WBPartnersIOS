@@ -6,29 +6,6 @@
 //
 
 import SwiftUI
-import Network
-
-enum LocalizePrices: String {
-    case notFound = "Ничего не найдено"
-    case fail = "Что-то пошло не так"
-    case tryLater = "Попробуйте позднее"
-    case update = "Обновить"
-}
-
-enum StatePricesView {
-    case error, loading, empty
-    
-    var imageName: String? {
-        switch self {
-        case .error:
-            CustomImage.errorView.rawValue
-        case .empty:
-            CustomImage.emptyView.rawValue
-        case .loading:
-            nil
-        }
-    }
-}
 
 /*
  Требование: "Интерфейс должен маĸсимально точно соответствовать маĸету"
@@ -38,16 +15,6 @@ enum StatePricesView {
  через GR при старте приложения считать wight и height (конкретного устройства)
  и через систему уравнений - пересчитывать интерфейс (максимальное масштабирование под устройство).
  */
-
-final class PricesAndDiscountsViewModel: ObservableObject {
-    
-    @Published var isAnimating = false
-    
-    func isInternetReallyAvailable() async -> Bool {
-        await Dependency.shared.internetManager.isInternetReallyAvailable()
-    }
-    
-}
 
 struct PricesAndDiscountsView: View {
     @EnvironmentObject var router: Router
@@ -59,8 +26,9 @@ struct PricesAndDiscountsView: View {
                 .overlay {
                     VStack {
                         /*
-                         решение аппроксимированного центра экрана без без вычислений GR
-                         без .offset(y:)
+                         Аппроксимированное центрирование элемента на экране
+                         без вычислений через GeometryReader
+                         и без смещений с помощью .offset(y:)
                          */
                         Spacer()
                         Spacer()
@@ -94,6 +62,7 @@ struct PricesAndDiscountsView: View {
             }
             Text(LocalizePrices.notFound.rawValue)
                 .font(.titleSFProRegular18())
+                .foregroundStyle(Color.wbColor.text)
         }
         .onAppear{
             viewModel.isAnimating = false
@@ -146,7 +115,11 @@ struct PricesAndDiscountsView: View {
             case true:
                 router.push(.productsInternet)
             case false:
-                router.push(.productsLocal)
+                router.push(.pricesAndDiscounts(.loading))
+                Task {
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    router.push(.pricesAndDiscounts(.empty))
+                }
             }
         }
     }
