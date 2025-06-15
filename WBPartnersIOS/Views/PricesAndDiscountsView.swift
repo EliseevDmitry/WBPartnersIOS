@@ -8,6 +8,13 @@
 import SwiftUI
 import Network
 
+enum LocalizePrices: String {
+    case notFound = "Ничего не найдено"
+    case fail = "Что-то пошло не так"
+    case tryLater = "Попробуйте позднее"
+    case update = "Обновить"
+}
+
 enum StatePricesView {
     case error, loading, empty
     
@@ -23,6 +30,15 @@ enum StatePricesView {
     }
 }
 
+/*
+ Требование: "Интерфейс должен маĸсимально точно соответствовать маĸету"
+ Использование - magic numbers - плохая практика, старался не прибегать,
+ или минимизировать их использование (сложно было понять термин - маĸсимально точно).
+ Теоретически можно было - перенести всю геометрию Figma в текущих размерах в уравнения,
+ через GR при старте приложения считать wight и height (конкретного устройства)
+ и через систему уравнений - пересчитывать интерфейс (максимальное масштабирование под устройство).
+ */
+
 final class PricesAndDiscountsViewModel: ObservableObject {
     @Published var isAnimating = false
     
@@ -32,15 +48,15 @@ final class PricesAndDiscountsViewModel: ObservableObject {
     //В логике моего приложения "Все товары" -> сетевой запрос (true)
     //"Товары без цены" -> загрузка из локального хранилища (false)
     private func checkInternetConnection() async -> Bool {
-           return await withCheckedContinuation { continuation in
-               let monitor = NWPathMonitor()
-               let queue = DispatchQueue(label: "InternetCheck")
-               monitor.pathUpdateHandler = { path in
-                   continuation.resume(returning: path.status == .satisfied)
-                   monitor.cancel()
-               }
-               monitor.start(queue: queue)
-           }
+        return await withCheckedContinuation { continuation in
+            let monitor = NWPathMonitor()
+            let queue = DispatchQueue(label: "InternetCheck")
+            monitor.pathUpdateHandler = { path in
+                continuation.resume(returning: path.status == .satisfied)
+                monitor.cancel()
+            }
+            monitor.start(queue: queue)
+        }
     }
     
     //дополнительная проверка доступа к ресурсу
@@ -76,6 +92,13 @@ struct PricesAndDiscountsView: View {
             Color.wbColor.background
                 .overlay {
                     VStack {
+                        /*
+                         решение аппроксимированного центра экрана без без вычислений GR
+                         без .offset(y:)
+                         */
+                        Spacer()
+                        Spacer()
+                        Spacer()
                         switch loadingState {
                         case .error:
                             errorStateView
@@ -84,9 +107,14 @@ struct PricesAndDiscountsView: View {
                         case .empty:
                             emptyStateView
                         }
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Spacer()
                     }
                 }
         }
+        .dynamicTypeSize(.xLarge)
     }
     
     private var loadingStateView: some View {
@@ -98,21 +126,28 @@ struct PricesAndDiscountsView: View {
             if let name = loadingState.imageName {
                 Image(name)
             }
-            Text("Ничего не найдено")
+            Text(LocalizePrices.notFound.rawValue)
         }
     }
     
     private var errorStateView: some View {
         Group {
-                if let name = loadingState.imageName {
-                    Image(name)
+            if let name = loadingState.imageName {
+                Image(name)
+            }
+            VStack{
+                VStack {
+                    Text(LocalizePrices.fail.rawValue)
+                        .font(.titleABeeZeeRegular())
+                        .foregroundStyle(Color.wbColor.text)
+                        .frame(height: 24)
+                    Spacer()
+                    Text(LocalizePrices.tryLater.rawValue)
+                        .font(.titleABeeZeeRegular())
+                        .foregroundStyle(Color.wbColor.textPrimary)
                 }
-                Text("Что то пошло не так")
-                    .font(.titleABeeZeeRegular())
-                    .foregroundStyle(Color.wbColor.text)
-                Text("Попробуйте позднее")
-                    .font(.titleABeeZeeRegular())
-                    .foregroundStyle(Color.wbColor.textPrimary)
+                .frame(height: 52)
+                Spacer()
                 Button {
                     router.push(.pricesAndDiscounts(.loading))
                     Task {
@@ -125,23 +160,28 @@ struct PricesAndDiscountsView: View {
                     }
                 } label: {
                     HStack {
-                        Image(.refreshicon)
-                        Text("Обновить")
+                        Image(CustomImage.button.rawValue)
+                        Text(LocalizePrices.update.rawValue)
                             .tint(.white)
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 8)
+                .padding(.vertical, 10)
                 .background(Color.wbColor.buttons)
                 .clipShape(.rect(cornerRadius: 10))
-
+            }
+            .frame(height: 108)
         }
     }
 }
 
-
+//navigationTitle и ignoresSafeArea - настраиваются для всех в RoutingView
 #Preview {
     NavigationView(content: {
-        PricesAndDiscountsView(loadingState: .constant(.empty))
+        //три состояния экрана PricesAndDiscountsView() - .empty, .error, .loading
+        PricesAndDiscountsView(loadingState: .constant(.error))
+            .navigationTitle(LocalizeRouting.title.rawValue)
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(edges: .bottom)
     })
 }

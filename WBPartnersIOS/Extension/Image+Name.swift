@@ -7,3 +7,7 @@
 
 import Foundation
 
+enum CustomImage: String {
+    case button = "refreshicon"
+    case backButton = "chevron.left"
+}

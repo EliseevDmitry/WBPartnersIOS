@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum LocalizeRouting: String {
+    case title = "Цены и скидки"
+}
+
 struct RoutingView: View {
     @EnvironmentObject var router: Router
     var body: some View {
@@ -18,7 +22,7 @@ struct RoutingView: View {
                     PricesAndDiscountsView(loadingState: .constant(.loading))
                 }
             }
-            .navigationTitle("Цены и скидки")
+            .navigationTitle(LocalizeRouting.title.rawValue)
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(edges: .bottom)
             .toolbar {
@@ -27,38 +31,36 @@ struct RoutingView: View {
                         Button(action: {
                             router.pop()
                         }) {
-                            Image(systemName: "chevron.left")
+                            Image(systemName: CustomImage.backButton.rawValue)
                                 .foregroundColor(.blue)
                         }
                     }
                 }
-                
             }
         }
         
     }
     
     @ViewBuilder
-        private func destinationView(for route: AppRoute) -> some View {
-            switch route {
-            case .productsInternet:
-                ProductsView(selectedSegment: 0)
-            case .productsLocal:
-                ProductsView(selectedSegment: 1)
-            case .pricesAndDiscounts(let state):
-                PricesAndDiscountsView(loadingState: .constant(state))
-            }
+    private func destinationView(for route: AppRoute) -> some View {
+        switch route {
+        case .productsInternet:
+            ProductsView(selectedSegment: 0)
+        case .productsLocal:
+            ProductsView(selectedSegment: 1)
+        case .pricesAndDiscounts(let state):
+            PricesAndDiscountsView(loadingState: .constant(state))
         }
-        
-        private func shouldShowBackButton() -> Bool {
-            guard let route = router.currentRoute else { return false }
-            switch route {
-            case .pricesAndDiscounts(let state):
-                return state != .error
-            default:
-                return true
-            }
-        }
+    }
     
+    private func shouldShowBackButton() -> Bool {
+        guard let route = router.currentRoute else { return false }
+        switch route {
+        case .pricesAndDiscounts(let state):
+            return state != .error
+        default:
+            return true
+        }
+    }
     
 }
